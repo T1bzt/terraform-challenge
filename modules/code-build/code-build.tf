@@ -63,6 +63,7 @@ resource "aws_codebuild_project" "code_build" {
   }
   source {
     type = "CODEPIPELINE"
+    buildspec = "project2-static-website/website/buildspec.yml"
   }
   # logs_config {
   #   cloudwatch_logs {
