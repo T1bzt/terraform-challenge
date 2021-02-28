@@ -1,5 +1,16 @@
 version: 0.2
+env:
+  variables:
+    WEBSITE_BUCKET_URL = "s3://static-website-bucket-test-abc-1/"
+    STATIC_WEBSITE_ROOT = "/project2-static-website/website"
 phases:
+  pre_build:
+    commands:
+      - echo "we are runing pre build staff"
   build:
     commands:
-      - aws s3 cp . $WEBSITE_BUCKET_URL
+      - echo "env var static_website root"
+      - echo $STATIC_WEBSITE_ROOT
+      - echo "env var website bucket url"
+      - echo $WEBSITE_BUCKET_URL
+      - aws s3 cp $STATIC_WEBSITE_ROOT $WEBSITE_BUCKET_URL --recursive

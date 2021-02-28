@@ -1,16 +1,17 @@
 data "aws_iam_policy_document" "code_build_policy_document" {
     statement {
       sid = "1"
-      effect = "allow"
+      effect = "Allow"
       actions = [ 
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
        ]
+       resources = [ "*" ]
     }
     statement {
      sid = "2" 
-     effect = "allow"
+     effect = "Allow"
      actions = [ "s3:*" ]
      resources = [ 
         "arn:aws:s3:::${var.website_bucket_name}",
@@ -46,7 +47,7 @@ resource "aws_iam_role_policy" "CodeBuildPolicy" {
 
 resource "aws_codebuild_project" "code_build" {
   name          = var.code_build_project_name
-  build_timeout = "20"
+  build_timeout = "5"
   service_role  = aws_iam_role.CodeBuildExecutionRole.arn
 
   environment {
@@ -54,18 +55,18 @@ resource "aws_codebuild_project" "code_build" {
     image                       = "aws/codebuild/standard:1.0"
     type                        = "LINUX_CONTAINER"
     image_pull_credentials_type = "CODEBUILD"
-
-    environment_variable {
-      name  = "WEBSITE_BUCKET_URL"
-      value = var.website_bucket_url
-    }
   }
-
-  logs_config {
-    cloudwatch_logs {
-      group_name  = "CodeBuildTerraformChallengeLogGroup"
-      stream_name = "CodeBuildTerraformChallengeLogStream"
-    }
+  artifacts {
+    type = "CODEPIPELINE"
   }
+  source {
+    type = "CODEPIPELINE"
+  }
+  # logs_config {
+  #   cloudwatch_logs {
+  #     group_name  = "CodeBuildTerraformChallengeLogGroup"
+  #     stream_name = "CodeBuildTerraformChallengeLogStream"
+  #   }
+  # }
 }
 
