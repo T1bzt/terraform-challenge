@@ -21,7 +21,7 @@ resource "aws_codepipeline" "codepipeline" {
       configuration = {
         ConnectionArn    = aws_codestarconnections_connection.connetion.arn
         FullRepositoryId = "T1bzt/terraform-challenge"
-        BranchName       = "main"
+        BranchName       = "master"
       }
     }
   }
