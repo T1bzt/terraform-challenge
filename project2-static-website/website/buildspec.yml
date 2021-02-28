@@ -1,6 +1,6 @@
 version: 0.2
 env:
-  variables:
+  # variables:
     # - WEBSITE_BUCKET_URL = "s3://static-website-bucket-test-abc-1/"
     # - STATIC_WEBSITE_ROOT = "/project2-static-website/website"
 phases:
