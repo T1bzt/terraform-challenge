@@ -15,7 +15,9 @@ data "aws_iam_policy_document" "code_build_policy_document" {
      actions = [ "s3:*" ]
      resources = [ 
         "arn:aws:s3:::${var.website_bucket_name}",
-        "arn:aws:s3:::${var.website_bucket_name}/*"
+        "arn:aws:s3:::${var.website_bucket_name}/*",
+        "arn:aws:s3:::${var.code_pipeline_bucket_name}",
+        "arn:aws:s3:::${var.code_pipeline_bucket_name}/*"
       ]
     }
     
