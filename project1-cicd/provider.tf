@@ -5,9 +5,9 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket         = "nb-ideaas-terraform-state-bucket2"
+    bucket         = "nb-ideaas-terraform-state-bucket"
     key            = "tfstate/terraform.tfstate"
-    region         = "eu-central-1"
+    region         = "eu-west-1"
     profile        = "ideaas"
   }
 }

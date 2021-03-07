@@ -12,6 +12,12 @@ module "ec2" {
   subnet_id = module.network.subnet_id
 }
 
+module "rds" {
+  source      = "../../modules/rds"
+  vpc_id = module.network.vpc_id
+  private_subnet_id = module.network.private_subnet_id
+}
+
 output "http_hostname" {
   value = module.ec2.http_hostname
 }
